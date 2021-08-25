@@ -4,4 +4,4 @@ Tech stacks;
 * Axios
 * SCSS
 <br>
-Demo: https://a65ad30ca32a9edb04fb3a518193e360.vercel.app/
+Demo: https://vue-hotel-reservation.vercel.app/
