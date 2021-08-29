@@ -116,7 +116,6 @@
 import { mapGetters, mapActions } from "vuex";
 import Datepicker from "v-calendar/lib/components/date-picker.umd";
 import NextPrev from "./NextPrev.vue";
-import axios from "axios";
 
 export default {
   name: "DateSelection",
@@ -132,7 +131,6 @@ export default {
       adultNumber: "2",
       childNumber: "0",
       diffDay: "1",
-      childStatus: true,
       disabled: '',
     };
   },
@@ -143,22 +141,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(["fetchHotels"]),
+    ...mapActions(["fetchHotels", "fetcChildStatus"]),
 
     onChange(event) {
       this.hotelName = event.target[this.hotel].text;
       let hotelId = this.hotel;
-      let childStatus = '';
-      axios
-        .get(
-          `https://5f6d939160cf97001641b049.mockapi.io/tkn/hotel-details/${hotelId}`
-        )
-        .then(function(response) {
-          childStatus = response.data.child_status;
-        });
-      setTimeout(() => {
-        this.childStatus = childStatus;
-      }, 1000);
+      this.fetcChildStatus(hotelId)
     },
 
     onSubmit() {
@@ -197,7 +185,7 @@ export default {
     },
   },
 
-  computed: { ...mapGetters(["hotelList"]) },
+  computed: { ...mapGetters(["hotelList", "childStatus"]) },
   created() {
     this.fetchHotels();
   },

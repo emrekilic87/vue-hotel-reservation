@@ -35,6 +35,7 @@ export default new Vuex.Store({
     hotels: [],
     selectedHotel: "",
     roomTypes: [],
+    childStatus: true,
   },
   mutations: {
     setStep(state, value) {
@@ -59,6 +60,9 @@ export default new Vuex.Store({
     setRoomTypes(state, roomTypes) {
       state.roomTypes = roomTypes;
     },
+    setChildStatus(state, childStatus) {
+      state.childStatus = childStatus;
+    },
   },
   actions: {
     async fetchHotels({ commit }) {
@@ -73,6 +77,14 @@ export default new Vuex.Store({
         `https://5f6d939160cf97001641b049.mockapi.io/tkn/hotel-details?hotel_id=${hotelId}`
       );
       commit("setRoomTypes", response.data);
+      commit("setChildStatus", response.data.child_status);
+    },
+
+    async fetcChildStatus({ commit }, hotelId) {
+      const response = await axios.get(
+        `https://5f6d939160cf97001641b049.mockapi.io/tkn/hotel-details/${hotelId}`
+      );
+      commit("setChildStatus", response.data.child_status);
     },
   },
   getters: {
@@ -90,6 +102,9 @@ export default new Vuex.Store({
     },
     roomTypes: (state) => {
       return state.roomTypes;
+    },
+    childStatus: (state) => {
+      return state.childStatus;
     },
   },
 });
