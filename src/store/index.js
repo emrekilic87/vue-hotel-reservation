@@ -77,7 +77,6 @@ export default new Vuex.Store({
         `https://5f6d939160cf97001641b049.mockapi.io/tkn/hotel-details?hotel_id=${hotelId}`
       );
       commit("setRoomTypes", response.data);
-      commit("setChildStatus", response.data.child_status);
     },
 
     async fetcChildStatus({ commit }, hotelId) {
